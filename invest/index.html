@@ -291,14 +291,14 @@
             <input type="password" id="auth-pass" placeholder="Password" style="width:100%;padding:0.75rem 1rem;margin-bottom:1rem;border:1px solid #e0e0e0;border-radius:6px;font-size:1rem;font-family:'Inter',sans-serif;">
             <button onclick="doLogin()" style="width:100%;padding:0.75rem;background:#c9a227;border:none;border-radius:6px;font-weight:600;font-size:1rem;cursor:pointer;font-family:'Inter',sans-serif;">Sign In</button>
             <p id="auth-error" style="color:#c00;margin-top:1rem;display:none;font-family:'Inter',sans-serif;">Invalid credentials</p>
-            <p style="color:#999;margin-top:2rem;font-size:0.85rem;font-family:'Inter',sans-serif;">Demo: sandra@demo.com / demo2026</p>
+            <p style="color:#999;margin-top:2rem;font-size:0.85rem;font-family:'Inter',sans-serif;">Demo: Marcus / RoundOnMe!</p>
         </div>
     </div>
     <script>
         function doLogin() {
             var u = document.getElementById('auth-user').value;
             var p = document.getElementById('auth-pass').value;
-            if (p === 'demo2026') {
+            if (p === 'RoundOnMe!') {
                 document.getElementById('auth-overlay').style.display = 'none';
             } else {
                 document.getElementById('auth-error').style.display = 'block';
