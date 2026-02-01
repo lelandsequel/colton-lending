@@ -3,7 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marcus Capital | Community Lending</title>
+    <title>Marcus Capital | Small Business Loans & Community Investing</title>
+    <meta name="description" content="Get small business funding from $10K-$250K with fair terms and fast approval. Or invest in local businesses with target 8-10% IRR. No banks required.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Marcus Capital | Small Business Loans & Community Investing">
+    <meta property="og:description" content="Capital for those who build. Fair terms. Real impact. No banks required.">
+    <meta property="og:type" content="website">
+    
+    <!-- Schema.org Organization -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FinancialService",
+        "name": "Marcus Capital",
+        "description": "Community lending platform connecting small business owners with investors",
+        "areaServed": "United States",
+        "serviceType": ["Small Business Loans", "Investment Opportunities"]
+    }
+    </script>
+    
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -331,6 +350,54 @@
             font-family: 'JetBrains Mono', monospace;
         }
         
+        /* FAQ */
+        .faq {
+            border-top: 1px solid var(--border);
+            padding: 6rem 3rem;
+        }
+        
+        .faq-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .faq-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+        
+        .faq h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+            background: var(--border);
+        }
+        
+        .faq-item {
+            background: var(--bg);
+            padding: 2rem;
+        }
+        
+        .faq-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+        
+        .faq-item p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+        
         /* CTA */
         .cta {
             border-top: 1px solid var(--border);
@@ -384,6 +451,7 @@
         <nav>
             <a href="#business">Business Owners</a>
             <a href="#investors">Investors</a>
+            <a href="/deck/">SEO Strategy</a>
             <a href="/borrow/">Account Login</a>
             <a href="/invest/" class="btn btn-primary">Investor Login</a>
         </nav>
@@ -489,6 +557,82 @@
         </div>
     </section>
     
+    <!-- FAQ Section for AEO -->
+    <section class="faq" id="faq">
+        <div class="faq-inner">
+            <div class="faq-label">// Frequently Asked</div>
+            <h2>Common Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>How fast can I get funded?</h3>
+                    <p>Most applications receive a decision within 48 hours. Once approved, funds are typically disbursed within 3-5 business days.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What credit score do I need?</h3>
+                    <p>We look at the whole picture, not just your credit score. Business revenue, time in operation, and cash flow matter more to us than a number.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What's the minimum investment?</h3>
+                    <p>Investors can start with as little as $5,000. There's no maximum — invest what makes sense for your portfolio.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How do investor returns work?</h3>
+                    <p>Investors earn returns from interest payments made by borrowers. Target IRR is 8-10%, with monthly distribution options available.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is my investment secured?</h3>
+                    <p>All loans are backed by business assets and personal guarantees. We maintain rigorous underwriting standards — our default rate is currently 0%.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What businesses do you fund?</h3>
+                    <p>We fund established small businesses across industries — restaurants, contractors, salons, auto shops, and more. Minimum 1 year in business required.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Schema for AEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How fast can I get a small business loan from Marcus Capital?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Most applications receive a decision within 48 hours. Once approved, funds are typically disbursed within 3-5 business days."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What credit score do I need for a Marcus Capital loan?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "We look at the whole picture, not just your credit score. Business revenue, time in operation, and cash flow matter more to us than a number."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is the minimum investment at Marcus Capital?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Investors can start with as little as $5,000. There's no maximum — invest what makes sense for your portfolio."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What returns can investors expect from Marcus Capital?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Investors earn returns from interest payments made by borrowers. Target IRR is 8-10%, with monthly distribution options available."
+                }
+            }
+        ]
+    }
+    </script>
+
     <section class="cta">
         <h2>Ready to start?</h2>
         <p>Whether you need capital or want to put your capital to work.</p>

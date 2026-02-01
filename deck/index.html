@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Strategy | Marcus Capital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg: #0a0a0a; --white: #ffffff; --gray: #888; --accent: #c9a227; --green: #4ade80; --border: #333; }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--white); overflow: hidden; }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg);
+            z-index: 100;
+        }
+        
+        .logo { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; letter-spacing: 0.1em; }
+        .logo span { color: var(--accent); }
+        .logo a { color: inherit; text-decoration: none; }
+        
+        .slide-counter { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--gray); }
+        
+        .slides-container { height: 100vh; overflow: hidden; padding-top: 60px; }
+        
+        .slide {
+            display: none;
+            height: calc(100vh - 60px);
+            padding: 4rem;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .slide.active { display: flex; }
+        
+        .slide-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 2rem;
+        }
+        
+        .slide h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+        }
+        
+        .slide h1 span { color: var(--accent); }
+        
+        .slide p {
+            font-size: 1.25rem;
+            color: var(--gray);
+            max-width: 700px;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+        
+        .slide-content { max-width: 1000px; width: 100%; }
+        
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            background: var(--border);
+            text-align: left;
+            margin-top: 2rem;
+        }
+        
+        .comparison-col { background: var(--bg); padding: 2rem; }
+        .comparison-col h3 { font-size: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+        .comparison-col.bad h3 { color: #f87171; }
+        .comparison-col.good h3 { color: var(--green); }
+        .comparison-col ul { list-style: none; }
+        .comparison-col li { padding: 0.5rem 0; font-size: 0.95rem; color: var(--gray); }
+        .comparison-col li::before { margin-right: 0.75rem; }
+        .comparison-col.bad li::before { content: '✗'; color: #f87171; }
+        .comparison-col.good li::before { content: '✓'; color: var(--green); }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: var(--border);
+            text-align: left;
+            margin-top: 2rem;
+        }
+        
+        .feature-card { background: var(--bg); padding: 2rem; }
+        .feature-card h3 { font-size: 1rem; margin-bottom: 0.75rem; color: var(--accent); }
+        .feature-card p { font-size: 0.9rem; color: var(--gray); line-height: 1.6; }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: var(--border);
+            margin-top: 2rem;
+        }
+        
+        .stat { background: var(--bg); padding: 2rem; text-align: center; }
+        .stat-value { font-size: 2.5rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--accent); margin-bottom: 0.5rem; }
+        .stat-label { font-size: 0.8rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; }
+        
+        .page-examples {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+            background: var(--border);
+            text-align: left;
+            margin-top: 2rem;
+        }
+        
+        .page-example { background: var(--bg); padding: 1.5rem; }
+        .page-example h4 { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--accent); margin-bottom: 0.5rem; }
+        .page-example p { font-size: 0.85rem; color: var(--gray); }
+        
+        .nav-controls {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--white);
+            font-size: 1.25rem;
+            cursor: pointer;
+        }
+        
+        .nav-btn:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+        
+        .nav-hint { font-size: 0.75rem; color: var(--gray); font-family: 'JetBrains Mono', monospace; }
+        
+        .progress { position: fixed; bottom: 0; left: 0; height: 3px; background: var(--accent); transition: width 0.3s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><a href="/">Marcus<span>Capital</span></a> / SEO Strategy</div>
+        <div class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">8</span></div>
+    </header>
+    
+    <div class="slides-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="slide-label">Digital Strategy</div>
+            <h1>SEO, AEO & <span>pSEO</span></h1>
+            <p>How we built Marcus Capital to dominate search — traditional, AI-powered, and programmatic. A complete visibility strategy.</p>
+        </div>
+        
+        <!-- Slide 2: What is SEO -->
+        <div class="slide">
+            <div class="slide-label">01 — Traditional SEO</div>
+            <h1>Search Engine <span>Optimization</span></h1>
+            <p>The foundation. Making sure Google understands what you do, trusts your site, and ranks you for the right searches.</p>
+            <div class="slide-content">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>Technical SEO</h3>
+                        <p>Fast load times, mobile-friendly, proper HTML structure, meta tags, schema markup.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>On-Page SEO</h3>
+                        <p>Keyword-optimized titles, descriptions, headers. Content that matches search intent.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Trust Signals</h3>
+                        <p>Schema.org markup tells Google exactly what kind of business you are and what you offer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 3: Our SEO Implementation -->
+        <div class="slide">
+            <div class="slide-label">01 — What We Did</div>
+            <h1>Marcus Capital <span>SEO</span></h1>
+            <div class="slide-content">
+                <div class="comparison">
+                    <div class="comparison-col bad">
+                        <h3>Most Sites</h3>
+                        <ul>
+                            <li>Generic title like "Home"</li>
+                            <li>No meta description</li>
+                            <li>No schema markup</li>
+                            <li>No Open Graph tags</li>
+                            <li>Slow, bloated code</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-col good">
+                        <h3>Marcus Capital</h3>
+                        <ul>
+                            <li>"Small Business Loans & Community Investing"</li>
+                            <li>Keyword-rich descriptions on every page</li>
+                            <li>FinancialService + FAQPage schema</li>
+                            <li>Full Open Graph for social sharing</li>
+                            <li>Minimal, fast-loading static HTML</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 4: What is AEO -->
+        <div class="slide">
+            <div class="slide-label">02 — Answer Engine Optimization</div>
+            <h1>Optimized for <span>AI Search</span></h1>
+            <p>Google's AI Overviews, ChatGPT, Perplexity — they all pull answers from content. AEO makes sure YOUR content gets pulled.</p>
+            <div class="slide-content">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>FAQ Sections</h3>
+                        <p>Clear questions and answers that AI can extract and cite directly.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Structured Data</h3>
+                        <p>FAQPage schema tells AI exactly which Q&As to pull from your page.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Natural Language</h3>
+                        <p>Content written the way people ask questions, not stuffed with keywords.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 5: Our AEO Implementation -->
+        <div class="slide">
+            <div class="slide-label">02 — What We Did</div>
+            <h1>Marcus Capital <span>AEO</span></h1>
+            <p>When someone asks "How fast can I get a small business loan?" — we want Marcus Capital to be the answer.</p>
+            <div class="slide-content">
+                <div class="comparison">
+                    <div class="comparison-col bad">
+                        <h3>Most Sites</h3>
+                        <ul>
+                            <li>No FAQ section</li>
+                            <li>Answers buried in paragraphs</li>
+                            <li>No structured data</li>
+                            <li>AI can't extract clear answers</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-col good">
+                        <h3>Marcus Capital</h3>
+                        <ul>
+                            <li>6 clear FAQ items on homepage</li>
+                            <li>Direct question → answer format</li>
+                            <li>Full FAQPage schema markup</li>
+                            <li>AI-ready extractable content</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 6: What is pSEO -->
+        <div class="slide">
+            <div class="slide-label">03 — Programmatic SEO</div>
+            <h1>Scale with <span>pSEO</span></h1>
+            <p>One template. Hundreds of pages. Target every industry, every location, every long-tail keyword — automatically.</p>
+            <div class="slide-content">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>Industry Pages</h3>
+                        <p>/loans/restaurant, /loans/contractor, /loans/salon — each targeting specific searches.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Location Pages</h3>
+                        <p>/houston, /dallas, /austin — local search domination for each market.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Long-Tail Capture</h3>
+                        <p>"restaurant equipment loans Houston" — a page exists for that exact search.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 7: pSEO Pages -->
+        <div class="slide">
+            <div class="slide-label">03 — What We Built</div>
+            <h1>pSEO <span>Pages</span></h1>
+            <p>Every page is a landing page. Every industry, every location, every intent.</p>
+            <div class="slide-content">
+                <div class="page-examples">
+                    <div class="page-example">
+                        <h4>/loans/restaurant</h4>
+                        <p>"Restaurant loans" "food truck financing" "kitchen equipment loans"</p>
+                    </div>
+                    <div class="page-example">
+                        <h4>/loans/contractor</h4>
+                        <p>"Contractor loans" "construction financing" "equipment loans for builders"</p>
+                    </div>
+                    <div class="page-example">
+                        <h4>/loans/salon</h4>
+                        <p>"Salon loans" "beauty business financing" "spa equipment loans"</p>
+                    </div>
+                    <div class="page-example">
+                        <h4>/houston</h4>
+                        <p>"Small business loans Houston" "Houston business funding"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 8: Impact -->
+        <div class="slide">
+            <div class="slide-label">The Result</div>
+            <h1>Complete <span>Visibility</span></h1>
+            <p>Traditional search. AI search. Long-tail. Local. Every way someone might find Marcus Capital — covered.</p>
+            <div class="slide-content">
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">SEO Strategies</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">∞</div>
+                        <div class="stat-label">Scalable Pages</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">24/7</div>
+                        <div class="stat-label">Lead Generation</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="nav-controls">
+        <button class="nav-btn" onclick="prevSlide()">←</button>
+        <span class="nav-hint">Arrow keys</span>
+        <button class="nav-btn" onclick="nextSlide()">→</button>
+    </div>
+    
+    <div class="progress" id="progress"></div>
+    
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+        
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
+            document.getElementById('progress').style.width = ((currentSlide + 1) / totalSlides * 100) + '%';
+        }
+        
+        function nextSlide() { showSlide(currentSlide + 1); }
+        function prevSlide() { showSlide(currentSlide - 1); }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+        
+        document.getElementById('progress').style.width = (1 / totalSlides * 100) + '%';
+    </script>
+</body>
+</html>
